@@ -15,8 +15,9 @@ $sql = "INSERT INTO `users`(`name`, `major`, `email`, `zip`)
 
     $stmt = $conn->prepare($sql);
     $stmt->execute($parameters);
-    session_destroy();
+    
 }
+session_destroy();
 $sql = "SELECT * from `users`";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
