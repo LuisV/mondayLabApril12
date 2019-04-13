@@ -2,7 +2,7 @@
 include 'DBConnection.php';
 session_start();
 $conn = getDBConnection();
-
+if(isset($_POST["data"])){
 $parameters = array();
 $input = $_POST["data"];
 $parameters[":name"]= $input["name"];
@@ -16,7 +16,7 @@ $sql = "INSERT INTO `users`(`name`, `major`, `email`, `zip`)
     $stmt = $conn->prepare($sql);
     $stmt->execute($parameters);
     session_destroy();
-    
+}
 $sql = "SELECT * from `users`";
 $stmt = $conn->prepare($sql);
 $stmt->execute();

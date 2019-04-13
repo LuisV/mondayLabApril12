@@ -44,7 +44,7 @@ if(isset( $_POST["progress"] )){
                 switch($_SESSION["progress"]){
                     case 3:
                         echo 'Submit this data? <br>
-                                <button id="send"> Submit</button>';
+                                <button class="send"> Submit</button>';
                         break;
                     case 2:
                         echo '<form method="POST">
@@ -82,7 +82,7 @@ if(isset( $_POST["progress"] )){
             </div>
             </div>
         </div>
-        
+        <button id="view"> View Data?</button>
         
     </body>
     
@@ -91,7 +91,7 @@ if(isset( $_POST["progress"] )){
               $js_array = json_encode($_SESSION);
               echo "var arr = ". $js_array . ";\n";
         ?>
-        $("#send").click( function(){
+        $(".send").click( function(){
             
          $.ajax({
         type: "post",
@@ -101,6 +101,29 @@ if(isset( $_POST["progress"] )){
             "data": arr
             
         },
+        success: function(data){
+            let htmlString="<div class='panel-heading'> Newsletter</div>" +
+            "<div class='panel-body content'>";
+                data.forEach(function( user ){
+                    htmlString+=" User ID: "+user.id+ "<br>";
+                    htmlString+=" Name: "+user.name+ "<br>";
+                    htmlString+=" Email: "+user.email+ "<br>";
+                    htmlString+=" Major: "+user.major+ "<br>";
+                    htmlString+=" Zip: "+user.zip+ "<br><br>";
+                    
+                })
+                htmlString+=" </div>";
+            $(".main").html(htmlString);   
+        }
+        });
+           
+        });
+        $("#view").click( function(){
+            
+         $.ajax({
+        type: "post",
+        url: "API/sendData.php",
+        dataType: "json",
         success: function(data){
             let htmlString="<div class='panel-heading'> Newsletter</div>" +
             "<div class='panel-body content'>";
