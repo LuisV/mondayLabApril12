@@ -3,14 +3,14 @@ include 'DBConnection.php';
 session_start();
 $conn = getDBConnection();
 if($_SESSION["progress"]==2){
-$parameters[":name"]= $_SESSION["name"];
-$parameters[":major"]= $_SESSION["major"];
-$parameters[":email"]= $_SESSION["email"];
-$parameters[":zip"]= $_SESSION["zip"];
-
-$sql = "INSERT INTO `users`(`name`, `major`, `email`, `zip`) 
-        VALUES ( :name , :major , :email, :zip)";
-
+    $parameters[":name"]= $_SESSION["name"];
+    $parameters[":major"]= $_SESSION["major"];
+    $parameters[":email"]= $_SESSION["email"];
+    $parameters[":zip"]= $_SESSION["zip"];
+    
+    $sql = "INSERT INTO `users`(`name`, `major`, `email`, `zip`) 
+            VALUES ( :name , :major , :email, :zip)";
+    
     $stmt = $conn->prepare($sql);
     $stmt->execute($parameters);
 }
